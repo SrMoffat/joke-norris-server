@@ -10,5 +10,5 @@ type Query {
     """
     Fetch a random joke in a category
     """
-    fetchCategoryJoke: Joke!
+    fetchCategoryJoke(category: String!): Joke!
 }
