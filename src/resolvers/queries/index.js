@@ -1,24 +1,13 @@
-// Fetch Categories
-const fetchCategories = () => {
+const fetch = require('node-fetch');
+/**
+ * Fetch categories 
+ * @returns
+ */
+const fetchCategories = async (parent, args, context, info) => {
+    const response =  await fetch("https://api.chucknorris.io/jokes/categories");
+    const categories = await response.json();
     return {
-        categories: [
-            "animal",
-            "career",
-            "celebrity",
-            "dev",
-            "explicit",
-            "fashion",
-            "food",
-            "history",
-            "money",
-            "movie",
-            "music",
-            "political",
-            "religion",
-            "science",
-            "sport",
-            "travel"
-        ]
+        categories
     };
 };
 
