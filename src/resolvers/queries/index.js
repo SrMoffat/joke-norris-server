@@ -50,7 +50,7 @@ const fetchCategoryJoke = () => {
     }
 };
 
-export default {
+module.exports = {
     fetchCategories,
     fetchCategoryJoke,
     fetchRandomJoke

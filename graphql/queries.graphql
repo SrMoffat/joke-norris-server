@@ -2,7 +2,7 @@ type Query {
     """
     Fetch all categories
     """
-    fetchCategories: [String]!
+    fetchCategories: CategoriesResponse!
     """
     Fetch a random joke
     """

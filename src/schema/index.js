@@ -13,8 +13,10 @@ const typeDefs = gql`
     ${queries}
     ${mutations}
 `;
-
-export const schema = makeExecutableSchema({
+const schema = makeExecutableSchema({
     typeDefs,
     resolvers
 });
+module.exports = {
+    schema
+}

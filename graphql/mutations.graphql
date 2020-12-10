@@ -2,7 +2,7 @@ type Mutation {
     """
     Create a new user
     """
-    signUp(input: signUpInput!): GeneralResponse!
+    signUp(input: SignUpInput!): GeneralResponse!
     """
     Login and authenticate user
     """

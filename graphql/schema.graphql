@@ -21,6 +21,9 @@ type AuthResponse {
     payload: AuthPayload
     error: Error
 }
+type CategoriesResponse {
+    categories: [String]!
+}
 type Error {
     field: String!
     message: String!
@@ -28,6 +31,16 @@ type Error {
 type GeneralResponse {
     message: String
     error: Error
+    user: User
+}
+type Joke {
+    id: String!
+    url: String!
+    icon_url: String!
+    value: String!
+    categories: [String]!
+    created_at: String!
+    updated_at: String!
 }
 type User {
     username: String!
