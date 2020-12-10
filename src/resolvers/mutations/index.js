@@ -22,10 +22,11 @@ const signUp = async (parent, { input }, context, info) => {
         };
     };
     const hashedPassord = await hash(password, 10);
-    console.log(hashedPassord);
-
-    // TODO: Check if username exists in DB, if yes, exit with error
-    const userExists = false;
+    const userExists = await context.prisma.user.findFirst({
+        where: {
+            username,
+        }
+    });
     if(userExists){
         return {
             error: {
@@ -34,12 +35,13 @@ const signUp = async (parent, { input }, context, info) => {
             }
         };
     };
-    const newUser = {
-        username,
-        password,
-        user_id: v4()
-    };
-    // TODO: Insert new user to DB
+    const newUser = await context.prisma.user.create({
+        data: {
+            ...input,
+            password: hashedPassord,
+            user_id: v4()
+        },
+    });
     return {
         message: "Sign Up was successful",
         user: newUser
@@ -53,8 +55,11 @@ const signUp = async (parent, { input }, context, info) => {
  */
 const login = async (parent, { input }, context, info) => {
     const { username, password } = input;
-    // TODO: Check if user exists, if no exit with error
-    const userExists = true;
+    const userExists = await context.prisma.user.findFirst({
+        where: {
+            username,
+        }
+    });
     if(!userExists){
         return {
             error: {
@@ -63,9 +68,7 @@ const login = async (parent, { input }, context, info) => {
             }
         };
     };
-    // TODO: Check provided password matches stored hash
-    const passwordHash = "$2a$10$/g5fvdMOkM6bhQGM.O3h/O.xS9.SNqPFGR.P2kjmfz9HpojGxP6AG"; // Grab this from user in DB
-    const validPassword = await compare(password, passwordHash);
+    const validPassword = await compare(password, userExists.password);
     if(!validPassword){
         return {
             error: {
@@ -74,7 +77,6 @@ const login = async (parent, { input }, context, info) => {
             }
         };
     };
-    // TODO: Create token
     const token = sign({
         user: input,
     }, "4fr0c0d3r0ck5!!") // TODO: Add this to .env
@@ -82,9 +84,7 @@ const login = async (parent, { input }, context, info) => {
         payload: {
             message: "Login was successful",
             token,
-            user: {
-                username: "4fr0c0d3"
-            }
+            user: userExists
         },
     }
 };
