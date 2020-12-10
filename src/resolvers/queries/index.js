@@ -1,9 +1,10 @@
 const fetch = require('node-fetch');
+
 /**
  * Fetch categories 
  * @returns
  */
-const fetchCategories = async (parent, args, context, info) => {
+const fetchCategories = async () => {
     const response =  await fetch("https://api.chucknorris.io/jokes/categories");
     const categories = await response.json();
     return {
@@ -11,17 +12,14 @@ const fetchCategories = async (parent, args, context, info) => {
     };
 };
 
-// Fetch Random Joke
-const fetchRandomJoke = () => {
-    return {
-        "categories": [],
-        "created_at": "2020-01-05 13:42:25.099703",
-        "icon_url": "https://assets.chucknorris.host/img/avatar/chuck-norris.png",
-        "id": "j8eVPeCBTpiuKxlsWRRagg",
-        "updated_at": "2020-01-05 13:42:25.099703",
-        "url": "https://api.chucknorris.io/jokes/j8eVPeCBTpiuKxlsWRRagg",
-        "value": "Chuck Norris throws massive Roman orgies for Lent."
-    };
+/**
+ * Fetch a random joke
+ * @returns
+ */
+const fetchRandomJoke = async () => {
+    const response =  await fetch("https://api.chucknorris.io/jokes/random");
+    const randomJoke = await response.json();
+    return randomJoke;
 };
 
 // Fetch Category Joke
