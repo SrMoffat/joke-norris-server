@@ -43,5 +43,6 @@ type Joke {
     updated_at: String!
 }
 type User {
+    user_id: String!
     username: String!
 }
