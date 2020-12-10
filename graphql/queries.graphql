@@ -1,0 +1,14 @@
+type Query {
+    """
+    Fetch all categories
+    """
+    fetchCategories: [String]!
+    """
+    Fetch a random joke
+    """
+    fetchRandomJoke: Joke!
+    """
+    Fetch a random joke in a category
+    """
+    fetchCategoryJoke: Joke!
+}

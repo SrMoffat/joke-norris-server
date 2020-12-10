@@ -1,0 +1,10 @@
+type Mutation {
+    """
+    Create a new user
+    """
+    signUp(input: signUpInput!): GeneralResponse!
+    """
+    Login and authenticate user
+    """
+    login(input: LoginInput!): AuthResponse!
+}

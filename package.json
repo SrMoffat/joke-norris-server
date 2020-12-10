@@ -1,0 +1,25 @@
+{
+  "name": "joke-norris-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:debug": "nodemon -w 'src/**/*.js' -w graphql -e js,json,graphql --exec 'node' src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SrMoffat/joke-norris-server.git"
+  },
+  "author": "4fr0c0d3",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SrMoffat/joke-norris-server/issues"
+  },
+  "homepage": "https://github.com/SrMoffat/joke-norris-server#readme",
+  "dependencies": {
+    "apollo-server": "^2.19.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
