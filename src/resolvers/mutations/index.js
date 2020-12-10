@@ -1,12 +1,12 @@
 const { sign } = require("jsonwebtoken");
-const { hash } = require("bcryptjs");
+const { hash, compare } = require("bcryptjs");
 const { v4 } = require("uuid");
 
 const { userPayload, validateUserPayload } = require("../../utils");
 
 /**
  * Create a new user in the DB
- * @param {{usename: string; password: string;}} user
+ * @param {{username: string; password: string;}} user
  * @returns
  */
 const signUp = async (parent, { input }, context, info) => {
@@ -22,6 +22,7 @@ const signUp = async (parent, { input }, context, info) => {
         };
     };
     const hashedPassord = await hash(password, 10);
+    console.log(hashedPassord);
 
     // TODO: Check if username exists in DB, if yes, exit with error
     const userExists = false;
@@ -45,12 +46,42 @@ const signUp = async (parent, { input }, context, info) => {
     };
 };
 
-// Login Resolver
-const login = () => {
+/**
+ * Log in/ Authenticate an existing user 
+ * @param {{username: string; password: string;}} user
+ * @returns
+ */
+const login = async (parent, { input }, context, info) => {
+    const { username, password } = input;
+    // TODO: Check if user exists, if no exit with error
+    const userExists = true;
+    if(!userExists){
+        return {
+            error: {
+                field: "Username",
+                message: "User does not exist"
+            }
+        };
+    };
+    // TODO: Check provided password matches stored hash
+    const passwordHash = "$2a$10$/g5fvdMOkM6bhQGM.O3h/O.xS9.SNqPFGR.P2kjmfz9HpojGxP6AG"; // Grab this from user in DB
+    const validPassword = await compare(password, passwordHash);
+    if(!validPassword){
+        return {
+            error: {
+                field: "Password",
+                message: "Invalid password"
+            }
+        };
+    };
+    // TODO: Create token
+    const token = sign({
+        user: input,
+    }, "4fr0c0d3r0ck5!!") // TODO: Add this to .env
     return {
         payload: {
             message: "Login was successful",
-            token: "token",
+            token,
             user: {
                 username: "4fr0c0d3"
             }
