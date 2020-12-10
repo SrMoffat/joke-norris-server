@@ -22,10 +22,11 @@ const signUp = async (parent, { input }, context, info) => {
         };
     };
     const hashedPassord = await hash(password, 10);
-    console.log(hashedPassord);
-
-    // TODO: Check if username exists in DB, if yes, exit with error
-    const userExists = false;
+    const userExists = await context.prisma.user.findFirst({
+        where: {
+            username,
+        }
+    });
     if(userExists){
         return {
             error: {
@@ -34,12 +35,13 @@ const signUp = async (parent, { input }, context, info) => {
             }
         };
     };
-    const newUser = {
-        username,
-        password,
-        user_id: v4()
-    };
-    // TODO: Insert new user to DB
+    const newUser = await context.prisma.user.create({
+        data: {
+            ...input,
+            password: hashedPassord,
+            user_id: v4()
+        },
+    });
     return {
         message: "Sign Up was successful",
         user: newUser
