@@ -22,7 +22,7 @@ const server = new ApolloServer({
 });
 
 server
-  .listen({ port: process.env.PORT || 4000 })
+  .listen({ port: process.env.PORT || 4000 }) // Add port to env
   .then(({ url }) =>
     console.log(`Joke Norris running is running on ${url}`)
 );
