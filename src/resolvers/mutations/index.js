@@ -79,7 +79,7 @@ const login = async (parent, { input }, context, info) => {
     };
     const token = sign({
         user: input,
-    }, "4fr0c0d3r0ck5!!") // TODO: Add this to .env
+    }, process.env.SECRET_KEY)
     return {
         payload: {
             message: "Login was successful",

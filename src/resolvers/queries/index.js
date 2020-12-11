@@ -1,6 +1,7 @@
 const fetch = require('node-fetch');
 
-const BASE_URL = "https://api.chucknorris.io"; // TODO: add to .env
+const BASE_URL = process.env.BASE_URL;
+
 /**
  * Fetch categories 
  * @returns
