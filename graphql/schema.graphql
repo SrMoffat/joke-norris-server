@@ -42,6 +42,10 @@ type Joke {
     created_at: String!
     updated_at: String!
 }
+type SearchResponse {
+    count: Int!
+    results: [Joke]!
+}
 type User {
     user_id: String!
     username: String!
