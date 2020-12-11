@@ -35,8 +35,24 @@ const fetchCategoryJoke = async (parent, args, context, info) => {
     return categoryJoke;
 };
 
+/**
+ * Fetch jokes based on free text passed as query string
+ * @param {{query: string;}} joke
+ * @returns
+ */
+const searchForJokes = async (parent, args, context, info) => {
+    const { query } = args;
+    const response = await fetch(`${BASE_URL}/jokes/search?query=${query}`);
+    const searchResults = await response.json();
+    return {
+        count: searchResults.total,
+        results: searchResults.result
+    }
+};
+
 module.exports = {
     fetchCategories,
     fetchCategoryJoke,
-    fetchRandomJoke
+    fetchRandomJoke,
+    searchForJokes
 };

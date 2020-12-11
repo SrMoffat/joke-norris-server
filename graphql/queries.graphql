@@ -11,4 +11,8 @@ type Query {
     Fetch a random joke in a category
     """
     fetchCategoryJoke(category: String!): Joke!
+    """
+    Fetch jokes based on free text passed as a query string
+    """
+    searchForJokes(query: String!): SearchResponse!
 }
